@@ -1,0 +1,7 @@
+{
+  "name": "sectapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
