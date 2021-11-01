@@ -14,3 +14,24 @@ button {
     font-size: 140%;
     border-radius: 5px;
 }
+
+table {
+    margin-top: 4%;
+    background: lightgray;
+    border-radius: 8px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: large;
+}
+
+#edit-icon {
+    color: #4AA7ED;
+}
+
+#delete-icon {
+    color: darkred;
+}
+
+td {
+    padding-right: 5px;
+}

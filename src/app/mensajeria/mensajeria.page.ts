@@ -27,10 +27,20 @@ export class MensajeriaPage implements OnInit {
     this.menu.enable(true, 'custom');
     this.menu.open('custom');
   }
-  hola(){
-    
-    console.log('hola');
-    this.router.navigateByUrl("/inicio");
+  mensajeria(){
+    this.menu.close();
+    this.router.navigateByUrl("/mensajeria");
+  }
+  cotizaciones(){
+    this.menu.close();
+    this.router.navigateByUrl("/cotizaciones");
+  }
+  informacionCliente(){
+    this.menu.close();
+    this.router.navigateByUrl("/infoclientes");
+  }
+  cerrarSesion(){
+    this.menu.close();
   }
 
 }

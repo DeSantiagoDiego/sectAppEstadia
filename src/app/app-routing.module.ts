@@ -27,6 +27,22 @@ const routes: Routes = [
     path: 'infoclientes',
     loadChildren: () => import('./infoclientes/infoclientes.module').then( m => m.InfoclientesPageModule)
   },
+  {
+    path: 'listadoclientes',
+    loadChildren: () => import('./listadoclientes/listadoclientes.module').then( m => m.ListadoclientesPageModule)
+  },
+  {
+    path: 'crearcliente',
+    loadChildren: () => import('./crearcliente/crearcliente.module').then( m => m.CrearclientePageModule)
+  },
+  {
+    path: 'editcliente/:id',
+    loadChildren: () => import('./crearcliente/crearcliente.module').then( m => m.CrearclientePageModule)
+  },
+  {
+    path: 'crear-cotizacion',
+    loadChildren: () => import('./crear-cotizacion/crear-cotizacion.module').then( m => m.CrearCotizacionPageModule)
+  },
 ];
 
 @NgModule({

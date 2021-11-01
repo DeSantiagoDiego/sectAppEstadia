@@ -1,0 +1,50 @@
+.item {
+    -webkit-border-radius: 10px 10px 10px 10px !important;
+    border: 4px solid #293590 !important;
+    margin: 3% !important;
+}
+
+#cantidadProducto {
+    width: 60%;
+    display: initial;
+    font-size: x-small;
+}
+
+#botonExportar {
+    font-size: 140%;
+    border-radius: 5px;
+    margin-top: 4%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#collapseOne {
+    text-align: center;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#collapseTwo {
+    text-align: center;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    margin-bottom: 2%;
+}
+
+#clientesT {
+    margin: auto;
+    display: block;
+    font-size: large;
+}
+
+#productosT {
+    margin: auto;
+    display: block;
+    font-size: large;
+}

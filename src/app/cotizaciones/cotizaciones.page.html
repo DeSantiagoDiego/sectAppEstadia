@@ -1,9 +1,58 @@
+<ion-menu side="start" menuId="first3" contentId="main3">
+    <ion-header>
+        <ion-toolbar color="primary">
+            <ion-title style="text-align:center;">Menu</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content color="primary">
+        <ion-list style="background: #4AA7ED;">
+            <ion-item (click)="mensajeria();" color="primary">Mensajeria
+                <ion-icon style="display: block; margin-left: auto; color: #293590; font-size: 250%; " side="end" src="\assets\icon\email.svg"></ion-icon>
+            </ion-item>
+            <ion-item (click)="cotizaciones();" color="primary">Cotizaciones
+                <ion-icon style="display: block; margin-left: auto; color: #293590; font-size: 250%;" side="end" src="\assets\icon\users.svg"></ion-icon>
+            </ion-item>
+            <ion-item (click)="informacionCliente();" color="primary">Información Cliente
+                <ion-icon style="display: block; margin-left: auto; color: #293590; font-size: 250%;" side="end" src="\assets\icon\userpicture.svg"></ion-icon>
+            </ion-item>
+            <ion-item (click)="cerrarSesion();" color="primary">Cerrar Sesion
+                <ion-icon style="display: block; margin-left: auto; color: #293590; font-size: 250%;" side="end" src="\assets\icon\logout.svg"></ion-icon>
+            </ion-item>
+
+        </ion-list>
+    </ion-content>
+</ion-menu>
+<ion-router-outlet id="main3"></ion-router-outlet>
 <ion-header>
-  <ion-toolbar>
-    <ion-title>cotizaciones</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <!--<ion-menu-button menu="first"></ion-menu-button>-->
+            <ion-icon style="font-size: 240%;" src="\assets\icon\hamburger.svg" (click)=openFirst()></ion-icon>
+        </ion-buttons>
+
+        <img style="max-width: 38%; margin-left:auto; margin-right: auto; display: block;" src="\assets\icon\sectapp.svg" alt="" srcset="">
+        <ion-buttons slot="end" disabled>
+            <!--<ion-menu-button style="color:#4AA7ED;" menu="first" disabled></ion-menu-button>-->
+            <ion-icon style="font-size: 240%; color:#4AA7ED;" src="\assets\icon\hamburger.svg"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <div class="container pt-4">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 style="text-align: center">Cotizaciónes</h3>
+                        <form class="mt-4">
+                            <button class="btn btn-success btn-lg" (click)="goNuevaCotizacion()">Nueva Cotización</button>
+                            <button class="btn btn-primary btn-lg" style="background-color: #4AA7ED !important; margin-left: 10px; border:#4AA7ED;" (click)="goListadoClientes()">Agregar Cliente</button>
+                        </form>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </ion-content>
