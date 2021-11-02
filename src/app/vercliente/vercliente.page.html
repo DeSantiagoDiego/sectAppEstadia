@@ -1,4 +1,4 @@
-<ion-menu side="start" menuId="first7" contentId="main7">
+<ion-menu side="start" menuId="first8" contentId="main8">
     <ion-header>
         <ion-toolbar color="primary">
             <ion-title style="text-align:center;">Menu</ion-title>
@@ -22,7 +22,7 @@
         </ion-list>
     </ion-content>
 </ion-menu>
-<ion-router-outlet id="main7"></ion-router-outlet>
+<ion-router-outlet id="main8"></ion-router-outlet>
 <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
@@ -39,24 +39,27 @@
 </ion-header>
 
 <ion-content>
-    <div id="usuariosInfo">
-        <h3 style="text-align: center">Información Cliente</h3>
-        <h5 *ngIf="clientes.length==0" style="text-align: center">No hay datos para mostrar</h5>
-        <div class="card" *ngIf="clientes.length>0">
-            <ion-row>
-
-                <div id="card-cliemte" *ngFor="let cliente of clientes">
-                    <ion-col col=2 style="display: table-row">
-                        <div class=card-body (click)="irVerCLiente(cliente.id)">
-                            <ion-icon src="\assets\icon\userpicture.svg" alt=" " style="color: #293590; font-size: 385%;
-                              margin-bottom: -7%"></ion-icon>
-                            <label>{{cliente.nombres}}</label>
-                            <label>{{cliente.apellidos}}</label>
-                        </div>
-                    </ion-col>
-                </div>
-
-            </ion-row>
+    <div class="card-body">
+        <h3 style="text-align: center">{{titulo}}
+            <div *ngIf="loading" class="spinner-border text-warning float-right" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </h3>
+        <span *ngIf="submitted && createcliente.invalid" style="color: red;">TODOS LOS CAMPOS SON OBLIGATORIOS</span>
+        <div>
+            <form id="infoCliente" class="mt-4" [formGroup]="createcliente" (ngSubmit)="agregarEditarCliente()">
+                <ion-icon src="\assets\icon\userpicture.svg" alt=" " style="color: #293590; font-size: 420%;"></ion-icon>
+                <h5>Nombres</h5>
+                <label>{{nombres}}</label>
+                <h5>Apellidos</h5>
+                <label>{{apellidos}}</label>
+                <h5>Sexo</h5>
+                <label>{{sexo}}</label>
+                <h5>Telefono</h5>
+                <label>{{telefono}}</label>
+                <h5>Domicilio</h5>
+                <label>{{domicilio}}</label>
+            </form>
         </div>
     </div>
 </ion-content>

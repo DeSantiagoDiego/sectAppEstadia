@@ -43,6 +43,10 @@ const routes: Routes = [
     path: 'crear-cotizacion',
     loadChildren: () => import('./crear-cotizacion/crear-cotizacion.module').then( m => m.CrearCotizacionPageModule)
   },
+  {
+    path: 'vercliente/:id',
+    loadChildren: () => import('./vercliente/vercliente.module').then( m => m.VerclientePageModule)
+  },
 ];
 
 @NgModule({
