@@ -3,6 +3,7 @@ import { MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ClientesService } from '../services/clientes.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-listadoclientes',
   templateUrl: './listadoclientes.page.html',
@@ -12,7 +13,7 @@ export class ListadoclientesPage implements OnInit {
   clientes: any [] = [];
   constructor(private menu: MenuController, public router: Router,
     private _clientesService:ClientesService,
-              private toastr:ToastrService) { }
+              private toastr:ToastrService, private authSvc: AuthService) { }
 
   ngOnInit(): void {
     console.log('Hola')
@@ -68,8 +69,15 @@ export class ListadoclientesPage implements OnInit {
     this.menu.close();
     this.router.navigateByUrl("/infoclientes");
   }
-  cerrarSesion(){
+  async cerrarSesion(){
     this.menu.close();
+    try{
+      await this.authSvc.logout();
+      this.router.navigate(['/login']);
+    } catch(error){
+      console.log(error);
+    }
+    this.authSvc.logout();
   }
 
 

@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start" disabled>
+            <!--<ion-menu-button menu="first"></ion-menu-button>-->
+            <ion-icon style="font-size: 240%; color:#4AA7ED;" src="\assets\icon\hamburger.svg"></ion-icon>
+        </ion-buttons>
+
+        <img style="max-width: 38%; margin-left:auto; margin-right: auto; display: block;" src="\assets\icon\sectapp.svg" alt="" srcset="">
+        <ion-buttons slot="end" disabled>
+            <!--<ion-menu-button style="color:#4AA7ED;" menu="first" disabled></ion-menu-button>-->
+            <ion-icon style="font-size: 240%; color:#4AA7ED;" src="\assets\icon\hamburger.svg"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="container pt-4" style="margin-top: 7%;">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h3 style="text-align: center;">Por favor escribe tu correo electrónico</h3>
+                        <form class="mt-4">
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" class="form-control" placeholder="Correo electrónico" [formControl]="usuarioCorreo">
+                            <div class="text-center mt-4">
+                                <button class="btn btn-primary btn-lg" style="background-color: #4AA7ED !important; border:#4AA7ED;" (click)="onReset()">Siguiente</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

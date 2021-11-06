@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientesService } from '../services/clientes.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-crearcliente',
@@ -23,7 +24,8 @@ export class CrearclientePage implements OnInit {
               private _clienteService:ClientesService,
               private router:Router,
               private toastr:ToastrService,
-              private aRoute:ActivatedRoute) {
+              private aRoute:ActivatedRoute,
+              private authSvc: AuthService) {
     this.createcliente = this.fb.group({
       nombres:['',Validators.required],
       apellidos:['',Validators.required],
@@ -70,8 +72,15 @@ export class CrearclientePage implements OnInit {
     this.menu.close();
     this.router.navigateByUrl("/infoclientes");
   }
-  cerrarSesion(){
+  async cerrarSesion(){
     this.menu.close();
+    try{
+      await this.authSvc.logout();
+      this.router.navigate(['/login']);
+    } catch(error){
+      console.log(error);
+    }
+    this.authSvc.logout();
   }
 
   agregarEditarCliente(){

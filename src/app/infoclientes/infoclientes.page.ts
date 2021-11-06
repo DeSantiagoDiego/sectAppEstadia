@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { ClientesService } from '../services/clientes.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-infoclientes',
@@ -10,7 +11,7 @@ import { ClientesService } from '../services/clientes.service';
 })
 export class InfoclientesPage implements OnInit {
   clientes: any [] = [];
-  constructor(private menu: MenuController, public router: Router, private _clientesService: ClientesService) { }
+  constructor(private menu: MenuController, public router: Router, private _clientesService: ClientesService, private authSvc: AuthService) { }
 
   ngOnInit() {
     this.getClientes();
@@ -59,8 +60,15 @@ export class InfoclientesPage implements OnInit {
     this.menu.close();
     this.router.navigateByUrl("/infoclientes");
   }
-  cerrarSesion(){
+  async cerrarSesion(){
     this.menu.close();
+    try{
+      await this.authSvc.logout();
+      this.router.navigate(['/login']);
+    } catch(error){
+      console.log(error);
+    }
+    this.authSvc.logout();
   }
 
 }

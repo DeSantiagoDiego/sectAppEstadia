@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -46,6 +46,22 @@ const routes: Routes = [
   {
     path: 'vercliente/:id',
     loadChildren: () => import('./vercliente/vercliente.module').then( m => m.VerclientePageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'olvido-contrasena',
+    loadChildren: () => import('./olvido-contra/olvido-contra.module').then( m => m.OlvidoContraPageModule)
+  },
+  {
+    path: 'createaccount',
+    loadChildren: () => import('./createaccount/createaccount.module').then( m => m.CreateaccountPageModule)
+  },
+  {
+    path: 'verification-email',
+    loadChildren: () => import('./send-email/send-email.module').then( m => m.SendEmailPageModule)
   },
 ];
 

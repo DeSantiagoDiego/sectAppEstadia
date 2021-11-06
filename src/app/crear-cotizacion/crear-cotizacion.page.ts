@@ -6,6 +6,7 @@ import { ControlService } from '../services/control.service';
 import { PdfMakeWrapper, Table, Txt, Cell, Img } from 'pdfmake-wrapper';
 import {ITable} from 'pdfmake-wrapper/lib/interfaces';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { AuthService } from '../services/auth.service';
 
 PdfMakeWrapper.setFonts(pdfFonts);
 
@@ -35,7 +36,7 @@ export class CrearCotizacionPage implements OnInit {
   clienteTelefono='';
   clienteBoolean=false;
   productoBoolean=false;
-  constructor(private menu: MenuController,private router:Router, private _clientesService:ClientesService,private _productoService:ControlService) { }
+  constructor(private menu: MenuController,private router:Router, private _clientesService:ClientesService,private _productoService:ControlService, private authSvc: AuthService) { }
 
   ngOnInit(): void {
     console.log(new Date ().toLocaleDateString("es-MX",{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
@@ -69,8 +70,15 @@ export class CrearCotizacionPage implements OnInit {
     this.menu.close();
     this.router.navigateByUrl("/infoclientes");
   }
-  cerrarSesion(){
+  async cerrarSesion(){
     this.menu.close();
+    try{
+      await this.authSvc.logout();
+      this.router.navigate(['/login']);
+    } catch(error){
+      console.log(error);
+    }
+    this.authSvc.logout();
   }
   getClientes(){
     this._clientesService.getClientes().subscribe(data=>{

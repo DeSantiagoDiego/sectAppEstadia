@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientesService } from '../services/clientes.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MenuController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-vercliente',
@@ -19,7 +20,7 @@ export class VerclientePage implements OnInit {
   telefono: string;
   domicilio:string;
   constructor(private aRoute:ActivatedRoute, private _clienteService:ClientesService,
-    private router:Router, private fb:FormBuilder,private menu: MenuController) { 
+    private router:Router, private fb:FormBuilder,private menu: MenuController, private authSvc: AuthService) { 
       this.createcliente = this.fb.group({
         nombres:['',Validators.required],
         apellidos:['',Validators.required],
@@ -60,8 +61,15 @@ export class VerclientePage implements OnInit {
     this.menu.close();
     this.router.navigateByUrl("/infoclientes");
   }
-  cerrarSesion(){
+  async cerrarSesion(){
     this.menu.close();
+    try{
+      await this.authSvc.logout();
+      this.router.navigate(['/login']);
+    } catch(error){
+      console.log(error);
+    }
+    this.authSvc.logout();
   }
   verCliente(){
     if (this.id!==null){

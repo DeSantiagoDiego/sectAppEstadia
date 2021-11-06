@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-mensajeria',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class MensajeriaPage implements OnInit {
 
-  constructor(private menu: MenuController, public router: Router) { }
+  constructor(private menu: MenuController, public router: Router, private authSvc: AuthService) { }
 
   ngOnInit() {
   }
@@ -39,8 +40,15 @@ export class MensajeriaPage implements OnInit {
     this.menu.close();
     this.router.navigateByUrl("/infoclientes");
   }
-  cerrarSesion(){
+  async cerrarSesion(){
     this.menu.close();
+    try{
+      await this.authSvc.logout();
+      this.router.navigate(['/login']);
+    } catch(error){
+      console.log(error);
+    }
+    this.authSvc.logout();
   }
 
 }

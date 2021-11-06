@@ -1,0 +1,45 @@
+form {
+    text-align: center;
+    display: grid;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    font-size: 140%;
+    border-radius: 5px;
+    margin-top: 4%;
+    color: white;
+}
+
+input {
+    margin: auto;
+    width: 75%;
+    border: 1px;
+    border-radius: 5px;
+    font-size: large;
+    color: black;
+}
+
+ion-content {
+    --background: #4AA7ED;
+    --color: #ffff;
+}
+
+a {
+    color: blue;
+}
+
+label {
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+img {
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 20%;
+    margin-bottom: 20%;
+}

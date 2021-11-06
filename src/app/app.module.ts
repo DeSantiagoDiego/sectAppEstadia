@@ -21,6 +21,7 @@ import * as pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfma
 
 // If any issue using previous fonts import. you can try this:
 // import pdfFonts from "pdfmake/build/vfs_fonts";
+import { AuthService } from './services/auth.service';
 
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);
@@ -36,7 +37,7 @@ PdfMakeWrapper.setFonts(pdfFonts);
     BrowserAnimationsModule,
     AngularFireAuthModule,
     AngularFireStorageModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },ClientesService],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },ClientesService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
