@@ -38,13 +38,14 @@ export class AuthService {
 
   async register(email:string, password:string){
     try{
-    const result = await this.afAuth.createUserWithEmailAndPassword(
+    return await this.afAuth.createUserWithEmailAndPassword(
       email,
       password
     );
-    this.sendVerificationEmail();
+    //this.sendVerificationEmail();
     }catch(error){
       console.log(error);
+      return error;
     }
   }
 

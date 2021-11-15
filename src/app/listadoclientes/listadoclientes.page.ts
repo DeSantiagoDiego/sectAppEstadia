@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ClientesService } from '../services/clientes.service';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +13,7 @@ export class ListadoclientesPage implements OnInit {
   clientes: any [] = [];
   constructor(private menu: MenuController, public router: Router,
     private _clientesService:ClientesService,
-              private toastr:ToastrService, private authSvc: AuthService) { }
+              private toastr:ToastrService, private authSvc: AuthService, private toast: ToastController) { }
 
   ngOnInit(): void {
     console.log('Hola')
@@ -36,9 +36,10 @@ export class ListadoclientesPage implements OnInit {
   eliminarCliente(id:string){
     this._clientesService.eliminarCliente(id).then(()=>{
       console.log('Cliente eliminado');
-      this.toastr.error('El cliente fue eliminado con exito','¡Cliente eliminado!',{
+      this.presentToastError('El cliente fue eliminado con exito','¡Cliente eliminado!');
+      /*this.toastr.error('El cliente fue eliminado con exito','¡Cliente eliminado!',{
         positionClass:'toast-bottom-right'
-      })
+      })*/
     }).catch(error=>{
       console.log(error);
     })
@@ -78,6 +79,27 @@ export class ListadoclientesPage implements OnInit {
       console.log(error);
     }
     this.authSvc.logout();
+  }
+
+  async presentToastError(mensaje, titulo) {
+    const toast = await this.toast.create({
+      header: titulo,
+      message: mensaje,
+      position: 'bottom',
+      duration: 2000,
+      color: 'danger'
+    });
+    toast.present();
+  }
+  async presentToastSuccess(mensaje, titulo) {
+    const toast = await this.toast.create({
+      header: titulo,
+      message: mensaje,
+      position: 'bottom',
+      duration: 2000,
+      color: 'success'
+    });
+    toast.present();
   }
 
 

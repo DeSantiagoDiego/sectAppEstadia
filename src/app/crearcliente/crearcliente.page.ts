@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ToastController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClientesService } from '../services/clientes.service';
@@ -25,7 +25,8 @@ export class CrearclientePage implements OnInit {
               private router:Router,
               private toastr:ToastrService,
               private aRoute:ActivatedRoute,
-              private authSvc: AuthService) {
+              private authSvc: AuthService,
+              private toast: ToastController) {
     this.createcliente = this.fb.group({
       nombres:['',Validators.required],
       apellidos:['',Validators.required],
@@ -108,9 +109,10 @@ export class CrearclientePage implements OnInit {
     }
     this.loading = true;
     this._clienteService.agregarCliente(cliente).then(()=>{
-      this.toastr.success('El cliente se registro correctamente','¡Cliente registrado!',{
-        positionClass:'toast-bottom-right'
-      });
+      this.presentToastSuccess('El cliente se registro correctamente','¡Cliente registrado!');
+      /*this.toastr.success('El cliente se registro correctamente','¡Cliente registrado!',{
+        positionClass:'toast-bottom-center'
+      });*/
       this.loading = false;
       this.router.navigate(['/listadoclientes']);
     }).catch(error=>{
@@ -131,9 +133,10 @@ export class CrearclientePage implements OnInit {
     this.loading = true;
     this._clienteService.actualizarCliente(id,cliente).then(()=>{
       this.loading=false;
-      this.toastr.info('El cliente se modifico con exito','¡Cliente modificado!',{
+      this.presentToastSuccess('El cliente se modifico con exito','¡Cliente modificado!');
+      /*this.toastr.info('El cliente se modifico con exito','¡Cliente modificado!',{
         positionClass:'toast-bottom-right'
-      })
+      })*/
       this.router.navigate(['/listadoclientes']);
     })
   }
@@ -156,6 +159,26 @@ export class CrearclientePage implements OnInit {
     }
   }
 
+  async presentToastError(mensaje, titulo) {
+    const toast = await this.toast.create({
+      header: titulo,
+      message: mensaje,
+      position: 'bottom',
+      duration: 2000,
+      color: 'danger'
+    });
+    toast.present();
+  }
+  async presentToastSuccess(mensaje, titulo) {
+    const toast = await this.toast.create({
+      header: titulo,
+      message: mensaje,
+      position: 'bottom',
+      duration: 2000,
+      color: 'success'
+    });
+    toast.present();
+  }
 
 
 }
