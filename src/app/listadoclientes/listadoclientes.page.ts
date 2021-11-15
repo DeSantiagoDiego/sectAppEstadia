@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController, ToastController } from '@ionic/angular';
+import { MenuController, ToastController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ClientesService } from '../services/clientes.service';
 import { ToastrService } from 'ngx-toastr';
@@ -13,10 +13,12 @@ export class ListadoclientesPage implements OnInit {
   clientes: any [] = [];
   constructor(private menu: MenuController, public router: Router,
     private _clientesService:ClientesService,
-              private toastr:ToastrService, private authSvc: AuthService, private toast: ToastController) { }
+              private toastr:ToastrService, private authSvc: AuthService,
+               private toast: ToastController, public loadingCtrl: LoadingController) { }
 
   ngOnInit(): void {
     console.log('Hola')
+    //this.presentLoadingDefault();
     this.getClientes();
   }
 
@@ -100,6 +102,21 @@ export class ListadoclientesPage implements OnInit {
       color: 'success'
     });
     toast.present();
+  }
+
+  async presentLoadingDefault(){
+    let loading = await this.loadingCtrl.create({
+    spinner: 'circular',
+    });
+  
+    loading.present();
+  
+    const waiting = setInterval(() => {
+      if(this.clientes.length!==0){
+        clearInterval(waiting);
+        loading.dismiss();
+      }
+    }, 1000);
   }
 
 

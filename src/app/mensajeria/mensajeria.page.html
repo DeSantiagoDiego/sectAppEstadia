@@ -39,5 +39,32 @@
 </ion-header>
 
 <ion-content>
+    <ion-card *ngFor='let chat of chats'>
+        <ion-card-header>
+            <b>  {{ chat.email }}: </b>
+        </ion-card-header>
+        <ion-card-content>
+            <div *ngIf="chat.message.toString().indexOf('https://firebasestorage.googleapis.com')==-1">{{ chat.message }}</div>
+            <a *ngIf="chat.message.toString().indexOf('https://firebasestorage.googleapis.com')!==-1" (click)="irPDF(chat.message)">{{chat.name}}</a>
+            <img src='{{ chat.message }}' *ngIf='chat.fileMessage'>
 
+        </ion-card-content>
+    </ion-card>
 </ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <!---<img [src]="newfile" alt="" id="image-selected">-->
+        <ion-input style="margin-left: 4%;" placeholder='Mensaje' [(ngModel)]='message'></ion-input>
+        <ion-buttons slot='end'>
+            Enviar
+            <ion-button (click)='sendMessage()'>
+                <ion-icon name='send-outline'></ion-icon>
+            </ion-button>
+            <ion-button class="image-upload" style="font-size: 168%; margin-top: 5%;">
+                <label for="file-input">
+                <ion-icon for="file-input" name="attach-outline"></ion-icon></label>
+                <input id="file-input" type="file" (change)=newImageUpload($event) />
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

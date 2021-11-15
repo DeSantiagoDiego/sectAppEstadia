@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { MenuController, LoadingController } from '@ionic/angular';
 import { ClientesService } from '../services/clientes.service';
 import { AuthService } from '../services/auth.service';
 
@@ -11,9 +11,11 @@ import { AuthService } from '../services/auth.service';
 })
 export class InfoclientesPage implements OnInit {
   clientes: any [] = [];
-  constructor(private menu: MenuController, public router: Router, private _clientesService: ClientesService, private authSvc: AuthService) { }
+  constructor(private menu: MenuController, public router: Router,
+     private _clientesService: ClientesService, private authSvc: AuthService, public loadingCtrl: LoadingController) { }
 
   ngOnInit() {
+    //this.presentLoadingDefault();
     this.getClientes();
   }
   irVerCLiente(id: any){
@@ -69,6 +71,20 @@ export class InfoclientesPage implements OnInit {
       console.log(error);
     }
     this.authSvc.logout();
+  }
+  async presentLoadingDefault(){
+    let loading = await this.loadingCtrl.create({
+    spinner: 'circular',
+    });
+  
+    loading.present();
+  
+    const waiting = setInterval(() => {
+      if(this.clientes.length!==0){
+        clearInterval(waiting);
+        loading.dismiss();
+      }
+    }, 1000);
   }
 
 }

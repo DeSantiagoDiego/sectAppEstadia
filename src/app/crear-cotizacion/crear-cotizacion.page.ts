@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { MenuController, LoadingController } from '@ionic/angular';
 import { ClientesService } from '../services/clientes.service';
 import { ControlService } from '../services/control.service';
 import { PdfMakeWrapper, Table, Txt, Cell, Img } from 'pdfmake-wrapper';
@@ -36,9 +36,12 @@ export class CrearCotizacionPage implements OnInit {
   clienteTelefono='';
   clienteBoolean=false;
   productoBoolean=false;
-  constructor(private menu: MenuController,private router:Router, private _clientesService:ClientesService,private _productoService:ControlService, private authSvc: AuthService) { }
+  constructor(private menu: MenuController,private router:Router,
+     private _clientesService:ClientesService,private _productoService:ControlService,
+      private authSvc: AuthService, public loadingCtrl: LoadingController) { }
 
   ngOnInit(): void {
+    //this.presentLoadingDefault();
     console.log(new Date ().toLocaleDateString("es-MX",{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
     (document.getElementById('botonExportar') as HTMLButtonElement).disabled = true;
     this.getClientes();
@@ -241,6 +244,21 @@ async exportarCotizacion(){
       this.acumuladoTotalWithIVA=this.acumuladoTotalWithIVA+this.productosSeleccionadosVista[i].totalWithIVA;
       i=i+1;
     }while(i<this.productosSeleccionadosVista.length)//5
+  }
+
+  async presentLoadingDefault(){
+    let loading = await this.loadingCtrl.create({
+    spinner: 'circular',
+    });
+  
+    loading.present();
+  
+    const waiting = setInterval(() => {
+      if(this.clientes.length!==0 && this.producto.length!==0){
+        clearInterval(waiting);
+        loading.dismiss();
+      }
+    }, 1000);
   }
 
 }
