@@ -141,16 +141,16 @@ export class MensajeriaPage implements OnInit {
       reader.onload = ((image)=>{
         this.imagen = image;
         console.log(event.target.files[0].name);
-        if(event.target.files[0].type=='application/pdf'){
+        if(event.target.files[0].type!=='application/pdf'){
+          //this.tmpFile = this.imagen.currentTarget.result as string;
+          console.log('No es PDF');
+          this.fileMessage=true;
+          this.presentLoadingDefaultImageOrPDF('imagen');
+        }else{
           console.log('ES PDF');
           this.newPDF = this.imagen.currentTarget.result as string;
           this.name= event.target.files[0].name;
           this.presentLoadingDefaultImageOrPDF('pdf');
-        }else{
-          //this.tmpFile = this.imagen.currentTarget.result as string;
-          console.log('No debo aparecer');
-          this.fileMessage=true;
-          this.presentLoadingDefaultImageOrPDF('imagen');
         }
           console.log(this.imagen.currentTarget.result);
       });
