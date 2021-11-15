@@ -1,5 +1,5 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
-import { MenuController, NavController, LoadingController } from '@ionic/angular';
+import { MenuController, NavController, LoadingController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ChatService } from '../services/chat.service';
@@ -27,12 +27,12 @@ export class MensajeriaPage implements OnInit {
   name='';
   fileMessage=false;
   sinMensajes=false;
-
+  error=false;
   fileID = Math.floor(Math.random() * 500);
 
   constructor(private menu: MenuController, public router: Router, private authSvc: AuthService,
     private navCtrl: NavController,
-    private chatServ: ChatService, public loadingCtrl: LoadingController) { }
+    private chatServ: ChatService, public loadingCtrl: LoadingController, private toast: ToastController) { }
 
   ngOnInit() {
     this.presentLoadingDefault()
@@ -141,25 +141,34 @@ export class MensajeriaPage implements OnInit {
       reader.onload = ((image)=>{
         this.imagen = image;
         console.log(event.target.files[0].name);
-        if(event.target.files[0].type!=='application/pdf'){
+        if(event.target.files[0].type=='application/png' ||event.target.files[0].type=='application/jpg'){
           //this.tmpFile = this.imagen.currentTarget.result as string;
-          console.log('No es PDF');
+          this.error=false;
+          console.log('Es una imagen');
           this.fileMessage=true;
           this.presentLoadingDefaultImageOrPDF('imagen');
-        }else{
+        }else if(event.target.files[0].type=='application/pdf'){
           console.log('ES PDF');
+          this.error=false;
           this.newPDF = this.imagen.currentTarget.result as string;
           this.name= event.target.files[0].name;
           this.presentLoadingDefaultImageOrPDF('pdf');
+        }else{
+          this.error=true;
+          this.presentToastError('El formato no es valido. Unicamente PDF o PNG/JPG', '¡Ha ocurrido un error!');
+          return;
         }
           console.log(this.imagen.currentTarget.result);
       });
       reader.readAsDataURL(event.target.files[0]);
     }
+    if (this.error==true){
+      this.error=false;
     const imageNewProduct = await this.chatServ.uploadImage(this.newfile, 'imagesMessage/', event.target.files[0].name);
     console.log(imageNewProduct)
     this.message = imageNewProduct;
     this.sendMessage();
+    }
   }
 
   irPDF(pdf){
@@ -198,5 +207,15 @@ export class MensajeriaPage implements OnInit {
     }, 1000);
   }
   
+  async presentToastError(mensaje, titulo) {
+    const toast = await this.toast.create({
+      header: titulo,
+      message: mensaje,
+      position: 'bottom',
+      duration: 2000,
+      color: 'danger'
+    });
+    toast.present();
+  }
 
 }
