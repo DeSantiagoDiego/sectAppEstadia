@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { CrearCotizacionPageRoutingModule } from './crear-cotizacion-routing.module';
 
 import { CrearCotizacionPage } from './crear-cotizacion.page';
+import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CrearCotizacionPageRoutingModule
+    CrearCotizacionPageRoutingModule,
   ],
   declarations: [CrearCotizacionPage]
 })

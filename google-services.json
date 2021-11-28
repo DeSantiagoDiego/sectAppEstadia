@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "384757783834",
+    "firebase_url": "https://puntoventa-5e01a-default-rtdb.firebaseio.com",
+    "project_id": "puntoventa-5e01a",
+    "storage_bucket": "puntoventa-5e01a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384757783834:android:d98f050a5e2df090b1a0a3",
+        "android_client_info": {
+          "package_name": "io.ionic.sectapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384757783834-soqd3b7sc6igchadhsdds6u7gjvs808p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0kYeW6nuAR_N3CWv803067ug3hkUn-yw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384757783834-soqd3b7sc6igchadhsdds6u7gjvs808p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

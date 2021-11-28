@@ -137,23 +137,27 @@ export class MensajeriaPage implements OnInit {
     if(event.target.files && event.target.files[0]){
       this.changeFile=true;
       this.newfile = event.target.files[0];
+      console.log(this.newfile)
       const reader = new FileReader();
       reader.onload = ((image)=>{
         this.imagen = image;
-        console.log(event.target.files[0].name);
-        if(event.target.files[0].type=='application/png' ||event.target.files[0].type=='application/jpg'){
+        console.log(event.target.files[0].type);
+        if(event.target.files[0].type=='image/png' ||event.target.files[0].type=='image/jpeg'){
           //this.tmpFile = this.imagen.currentTarget.result as string;
           this.error=false;
           console.log('Es una imagen');
           this.fileMessage=true;
           this.presentLoadingDefaultImageOrPDF('imagen');
+          this.subir(event.target.files[0].name);
         }else if(event.target.files[0].type=='application/pdf'){
           console.log('ES PDF');
           this.error=false;
           this.newPDF = this.imagen.currentTarget.result as string;
           this.name= event.target.files[0].name;
           this.presentLoadingDefaultImageOrPDF('pdf');
+          this.subir(event.target.files[0].name);
         }else{
+          console.log('Archivo no valido');
           this.error=true;
           this.presentToastError('El formato no es valido. Unicamente PDF o PNG/JPG', '¡Ha ocurrido un error!');
           return;
@@ -162,13 +166,13 @@ export class MensajeriaPage implements OnInit {
       });
       reader.readAsDataURL(event.target.files[0]);
     }
-    if (this.error==true){
-      this.error=false;
-    const imageNewProduct = await this.chatServ.uploadImage(this.newfile, 'imagesMessage/', event.target.files[0].name);
+  }
+
+  async subir(name){
+    const imageNewProduct = await this.chatServ.uploadImage(this.newfile, 'imagesMessage/',name);
     console.log(imageNewProduct)
     this.message = imageNewProduct;
     this.sendMessage();
-    }
   }
 
   irPDF(pdf){
@@ -200,7 +204,8 @@ export class MensajeriaPage implements OnInit {
     loading.present();
   
     const waiting = setInterval(() => {
-      if(this.message==''){
+      if(this.message=='' &&this.name=='' &&
+      this.fileMessage==false){
         clearInterval(waiting);
         loading.dismiss();
       }
